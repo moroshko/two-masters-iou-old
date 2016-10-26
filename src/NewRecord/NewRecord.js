@@ -138,18 +138,30 @@ class NewRecord extends Component {
     base.push('records', {
       data: newRecord,
       then: error => {
-        base.database().ref('/levaOwesDanik')
-          .transaction(levaOwesDanik => levaOwesDanik + levaOwesDanikDiff, error => {
-            this.setState({
-              lender: null,
-              borrower: null,
-              amount: '',
-              description: '',
-              date: this.getToday(),
-              loading: false,
-              error: error === null ? null : 'Something went wrong'
-            });
+        if (error) {
+          this.setState({
+            lender: null,
+            borrower: null,
+            amount: '',
+            description: '',
+            date: this.getToday(),
+            loading: false,
+            error: 'Something went wrong'
           });
+        } else {
+          base.database().ref('/levaOwesDanik')
+            .transaction(levaOwesDanik => levaOwesDanik + levaOwesDanikDiff, error => {
+              this.setState({
+                lender: null,
+                borrower: null,
+                amount: '',
+                description: '',
+                date: this.getToday(),
+                loading: false,
+                error: error === null ? null : 'Something went wrong'
+              });
+            });
+        }
       }
     })
   };
