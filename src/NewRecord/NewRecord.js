@@ -11,20 +11,24 @@ class NewRecord extends Component {
   constructor() {
     super();
 
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth() + 1;
-    const day = now.getDate();
-
     this.state = {
       lender: null,
       borrower: null,
       amount: '',
       description: '',
-      date: `${year}-${month < 10 ? `0${month}` : month}-${day}`,
+      date: this.getToday(),
       loading: false,
       error: null
     };
+  }
+
+  getToday() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+
+    return `${year}-${month < 10 ? `0${month}` : month}-${day}`;
   }
 
   onLenderChangeToLeva = () => {
@@ -87,16 +91,35 @@ class NewRecord extends Component {
   addNewRecord = event => {
     event.preventDefault();
 
+    this.setState({
+      loading: true,
+      error: null
+    });
+
+    const { base } = this.context;
     const { lender, borrower, amount, description, date } = this.state;
     const newRecord = {
       lender: lender,
       borrower: borrower,
-      amount: amount.trim(),
+      amount: parseFloat(amount.trim()),
       description: description.trim(),
       date: date
     };
 
-    console.log(JSON.stringify(newRecord, null, 2));
+    base.push('records', {
+      data: newRecord,
+      then: error => {
+        this.setState({
+          lender: null,
+          borrower: null,
+          amount: '',
+          description: '',
+          date: this.getToday(),
+          loading: false,
+          error: error === null ? null : 'Something went wrong'
+        });
+      }
+    })
   };
 
   isAmountValid(amount) {
