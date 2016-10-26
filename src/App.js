@@ -4,6 +4,7 @@ import Login from './Login/Login';
 import Logout from './Logout/Logout';
 import Balance from './Balance/Balance';
 import NewRecord from './NewRecord/NewRecord';
+import Records from './Records/Records';
 import './App.css';
 
 const base = Rebase.createClass({
@@ -23,7 +24,8 @@ class App extends Component {
 
     this.state = {
       loading: true,
-      user: null
+      user: null,
+      isLogoutCollapsed: true
     };
   }
 
@@ -37,6 +39,14 @@ class App extends Component {
     base.onAuth(this.onAuth);
   }
 
+  toggleIsLogoutCollapsed = () => {
+    const { isLogoutCollapsed } = this.state;
+
+    this.setState({
+      isLogoutCollapsed: !isLogoutCollapsed
+    });
+  };
+
   onAuth = user => {
     this.setState({
       loading: false,
@@ -45,7 +55,7 @@ class App extends Component {
   };
 
   render() {
-    const { loading, user } = this.state;
+    const { loading, user, isLogoutCollapsed } = this.state;
 
     return (
       <div className="App-container">
@@ -54,9 +64,16 @@ class App extends Component {
             <div className="App-loading">Loading...</div> :
             (user ?
               <div>
-                <Logout email={user.email} />
-                <Balance />
+                <Logout
+                  isCollapsed={isLogoutCollapsed}
+                  email={user.email}
+                />
+                <Balance
+                  isLogoutCollapsed={isLogoutCollapsed}
+                  onGearClick={this.toggleIsLogoutCollapsed}
+                />
                 <NewRecord />
+                <Records />
               </div> :
               <Login />
             )

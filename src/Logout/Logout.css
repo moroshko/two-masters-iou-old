@@ -3,7 +3,10 @@
   font-size: 14px;
   text-align: center;
   padding-bottom: 25px;
-  border-bottom: 1px solid black;
+}
+
+.Logout-container-collapsed {
+  display: none;
 }
 
 .Logout-button {

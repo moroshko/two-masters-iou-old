@@ -88,6 +88,34 @@ class NewRecord extends Component {
     });
   };
 
+  getLevaOwesDanikDiff(newRecord) {
+    if (newRecord.lender === '2masters' && newRecord.borrower === 'danik') {
+      return -newRecord.amount / 2;
+    }
+
+    if (newRecord.lender === '2masters' && newRecord.borrower === 'leva') {
+      return newRecord.amount / 2;
+    }
+
+    if (newRecord.lender === 'leva' && newRecord.borrower === '2masters') {
+      return -newRecord.amount / 2;
+    }
+
+    if (newRecord.lender === 'danik' && newRecord.borrower === '2masters') {
+      return newRecord.amount / 2;
+    }
+
+    if (newRecord.lender === 'leva' && newRecord.borrower === 'danik') {
+      return -newRecord.amount;
+    }
+
+    if (newRecord.lender === 'danik' && newRecord.borrower === 'leva') {
+      return newRecord.amount;
+    }
+
+    return 0;
+  }
+
   addNewRecord = event => {
     event.preventDefault();
 
@@ -105,19 +133,23 @@ class NewRecord extends Component {
       description: description.trim(),
       date: date
     };
+    const levaOwesDanikDiff = this.getLevaOwesDanikDiff(newRecord);
 
     base.push('records', {
       data: newRecord,
       then: error => {
-        this.setState({
-          lender: null,
-          borrower: null,
-          amount: '',
-          description: '',
-          date: this.getToday(),
-          loading: false,
-          error: error === null ? null : 'Something went wrong'
-        });
+        base.database().ref('/levaOwesDanik')
+          .transaction(levaOwesDanik => levaOwesDanik + levaOwesDanikDiff, error => {
+            this.setState({
+              lender: null,
+              borrower: null,
+              amount: '',
+              description: '',
+              date: this.getToday(),
+              loading: false,
+              error: error === null ? null : 'Something went wrong'
+            });
+          });
       }
     })
   };

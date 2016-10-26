@@ -7,15 +7,16 @@ class Logout extends Component {
   };
 
   static propTypes = {
+    isCollapsed: PropTypes.bool.isRequired,
     email: PropTypes.string.isRequired
   };
 
   render() {
     const { base } = this.context;
-    const { email } = this.props;
+    const { isCollapsed, email } = this.props;
 
     return (
-      <div className="Logout-container">
+      <div className={`Logout-container${isCollapsed ? ' Logout-container-collapsed' : ''}`}>
         {email}
         <button
           className="Logout-button small-button"

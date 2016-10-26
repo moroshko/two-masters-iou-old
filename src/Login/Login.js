@@ -17,6 +17,16 @@ class Login extends Component {
     };
   }
 
+  componentDidMount() {
+    this.emailField.focus();
+  }
+
+  storeEmailFieldReference = input => {
+    if (input !== null) {
+      this.emailField = input;
+    }
+  };
+
   onEmailChange = event => {
     this.setState({
       email: event.target.value
@@ -70,6 +80,7 @@ class Login extends Component {
             onChange={this.onEmailChange}
             autoComplete="off"
             spellCheck="false"
+            ref={this.storeEmailFieldReference}
           />
         </div>
         <div className="field-container">

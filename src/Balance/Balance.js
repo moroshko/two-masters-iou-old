@@ -1,9 +1,15 @@
 import React, { Component, PropTypes } from 'react';
+import gearIcon from './gear-icon.svg';
 import './Balance.css';
 
 class Balance extends Component {
   static contextTypes = {
     base: PropTypes.object
+  };
+
+  static propTypes = {
+    isLogoutCollapsed: PropTypes.bool.isRequired,
+    onGearClick: PropTypes.func.isRequired
   };
 
   constructor() {
@@ -53,11 +59,18 @@ class Balance extends Component {
 
   render() {
     const { loading, levaOwesDanik } = this.state;
+    const { isLogoutCollapsed, onGearClick } = this.props;
     const levaOwesDanikRounded = Math.round(levaOwesDanik * 100) / 100;
 
     return (
       <div className="Balance-container">
         {loading ? 'Loading...' : this.renderBalance(levaOwesDanikRounded)}
+        <button
+          className={`Balance-toggle-logout-button${isLogoutCollapsed ? ' Balance-toggle-logout-button-collapsed' : ''} small-button`}
+          onClick={onGearClick}
+          title={isLogoutCollapsed ? 'Show logout' : 'Hide logout'}>
+          <img className="Balance-gear-icon" src={gearIcon} alt="Toggle logout" />
+        </button>
       </div>
     );
   }
