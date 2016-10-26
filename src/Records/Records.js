@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import './Records.css';
 
+const MAX_RECORDS = 100;
+
 class Records extends Component {
   static contextTypes = {
     base: PropTypes.object
@@ -25,6 +27,11 @@ class Records extends Component {
     this.ref = base.syncState('records', {
       context: this,
       state: 'records',
+      asArray: true,
+      queries: {
+        orderByChild: 'date',
+        limitToLast: MAX_RECORDS
+      },
       then() {
         this.setState({
           loading: false
@@ -41,8 +48,8 @@ class Records extends Component {
 
   renderRecord(record) {
     return (
-      <li>
-        {record.amount}
+      <li key={record.key}>
+        {record.date}
       </li>
     );
   }
@@ -50,15 +57,13 @@ class Records extends Component {
   render() {
     const { loading, records } = this.state;
 
-    console.log(records);
-
     return (
       <div className="Records-container">
         {
           loading ?
             'Loading...' :
             <ul>
-              {/*records.map(this.renderRecord)*/}
+              {records.reverse().map(this.renderRecord)}
             </ul>
         }
       </div>
