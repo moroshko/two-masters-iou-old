@@ -1,0 +1,10 @@
+.App-container {
+  margin: 30px auto 0;
+  width: 450px;
+  font-family: monospace;
+  font-size: 20px;
+}
+
+.App-loading {
+  text-align: center;
+}
