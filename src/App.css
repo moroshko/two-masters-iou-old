@@ -8,3 +8,65 @@
 .App-loading {
   text-align: center;
 }
+
+button {
+  font-family: monospace;
+  background: none;
+  border: 0;
+  box-shadow: 0 0 0 1px black;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: 0;
+  box-shadow: 0 0 0 2px black;
+}
+
+button:disabled {
+  opacity: 0.3;
+  box-shadow: none;
+  cursor: default;
+}
+
+button.big-button {
+  font-size: 20px;
+  padding: 6px 15px;
+}
+
+button.small-button {
+  font-size: 14px;
+  padding: 3px 8px;
+}
+
+input {
+  font-family: monospace;
+  font-size: 20px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid black;
+}
+
+input:focus {
+  outline: 0;
+  border-bottom: 2px solid black;
+}
+
+label {
+  display: inline-block;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.field-container {
+  height: 30px;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: red;
+}
+
+/*
+  lender color: #b6fab6
+  borrower color: #ffbaba
+*/

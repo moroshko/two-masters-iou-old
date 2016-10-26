@@ -39,12 +39,25 @@ class Balance extends Component {
     base.removeBinding(this.ref);
   }
 
+  renderBalance(levaOwesDanikRounded) {
+    if (levaOwesDanikRounded === 0) {
+      return 'All good!'
+    }
+
+    if (levaOwesDanikRounded > 0) {
+      return `Leva owes Danik: $${levaOwesDanikRounded}`;
+    }
+
+    return `Danik owes Leva: $${-levaOwesDanikRounded}`;
+  }
+
   render() {
     const { loading, levaOwesDanik } = this.state;
+    const levaOwesDanikRounded = Math.round(levaOwesDanik * 100) / 100;
 
     return (
       <div className="Balance-container">
-        Balance: {loading ? 'Loading...' : levaOwesDanik}
+        {loading ? 'Loading...' : this.renderBalance(levaOwesDanikRounded)}
       </div>
     );
   }

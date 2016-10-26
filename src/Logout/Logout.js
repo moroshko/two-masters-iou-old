@@ -18,7 +18,7 @@ class Logout extends Component {
       <div className="Logout-container">
         {email}
         <button
-          className="Logout-button"
+          className="Logout-button small-button"
           type="button"
           onClick={base.unauth}>
           Logout

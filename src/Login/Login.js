@@ -10,9 +10,9 @@ class Login extends Component {
     super();
 
     this.state = {
-      loading: false,
       email: '',
       password: '',
+      loading: false,
       error: null
     };
   }
@@ -52,18 +52,18 @@ class Login extends Component {
   };
 
   render() {
-    const { loading, email, password, error } = this.state;
+    const { email, password, loading, error } = this.state;
 
     return (
       <form onSubmit={this.login}>
         {/* https://medium.com/paul-jaworski/turning-off-autocomplete-in-chrome-ee3ff8ef0908 */}
         <input type="hidden" value="whatever" />
-        <div className="Login-email-container">
-          <label className="Login-label" htmlFor="email">
+        <div className="field-container">
+          <label className="Login-label" htmlFor="login-email">
             Email:
           </label>
           <input
-            id="email"
+            id="login-email"
             className="Login-input"
             type="text"
             value={email}
@@ -72,12 +72,12 @@ class Login extends Component {
             spellCheck="false"
           />
         </div>
-        <div className="Login-password-container">
-          <label className="Login-label" htmlFor="password">
+        <div className="field-container">
+          <label className="Login-label" htmlFor="login-password">
             Password:
           </label>
           <input
-            id="password"
+            id="login-password"
             className="Login-input"
             type="password"
             value={password}
@@ -89,11 +89,13 @@ class Login extends Component {
           {
             loading ?
               'Loading...' :
-              <button className="Login-button" type="submit">Login</button>
+              <button className="Login-button big-button" type="submit">
+                Login
+              </button>
           }
           {
             error ?
-              <span className="Login-sorry">{error}</span> :
+              <span className="Login-sorry error-message">{error}</span> :
               null
           }
         </div>

@@ -3,6 +3,7 @@ import Rebase from 're-base';
 import Login from './Login/Login';
 import Logout from './Logout/Logout';
 import Balance from './Balance/Balance';
+import NewRecord from './NewRecord/NewRecord';
 import './App.css';
 
 const base = Rebase.createClass({
@@ -55,6 +56,7 @@ class App extends Component {
               <div>
                 <Logout email={user.email} />
                 <Balance />
+                <NewRecord />
               </div> :
               <Login />
             )

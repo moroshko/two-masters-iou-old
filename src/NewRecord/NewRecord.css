@@ -1,0 +1,69 @@
+.NewRecord-container {
+  margin-top: 30px;
+}
+
+.NewRecord-lender-and-borrower-container {
+  text-align: center;
+}
+
+.NewRecord-lender-container {
+  display: inline-block;
+}
+
+.NewRecord-arrow {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 40px;
+  padding: 24px 30px;
+}
+
+.NewRecord-borrower-container {
+  display: inline-block;
+}
+
+.NewRecord-lender-button {
+  width: 150px;
+  margin-top: 1px;
+}
+
+.NewRecord-lender-button:focus {
+  box-shadow: 0 0 0 1px black;
+}
+
+.NewRecord-lender-selected {
+  background-color: #b6fab6;
+}
+
+.NewRecord-borrower-button {
+  width: 150px;
+  margin-top: 1px;
+}
+
+.NewRecord-borrower-button:focus {
+  box-shadow: 0 0 0 1px black;
+}
+
+.NewRecord-borrower-selected {
+  background-color: #ffbaba;
+}
+
+.NewRecord-text-fields-container {
+  margin-top: 40px;
+}
+
+.NewRecord-label {
+  width: 150px;
+}
+
+.NewRecord-input {
+  width: 280px;
+}
+
+.NewRecord-footer {
+  margin: 30px 0 0 160px;
+}
+
+.NewRecord-sorry {
+  margin-left: 30px;
+  font-size: 14px;
+}

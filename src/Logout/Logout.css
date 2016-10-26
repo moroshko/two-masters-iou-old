@@ -8,16 +8,4 @@
 
 .Logout-button {
   margin-left: 20px;
-  font-family: monospace;
-  font-size: 14px;
-  background: none;
-  border: 1px solid black;
-  padding: 3px 8px;
-  cursor: pointer;
-}
-
-.Logout-button:focus {
-  outline: 0;
-  border: 2px solid black;
-  margin: -1px 0 0 19px;
 }
