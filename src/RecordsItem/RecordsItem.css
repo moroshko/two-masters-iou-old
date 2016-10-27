@@ -1,0 +1,37 @@
+.RecordsItem {
+  list-style-type: none;
+  padding: 15px 20px;
+  font-size: 14px;
+  border-top: 1px dashed #777;
+  cursor: pointer;
+}
+
+.RecordsItem:last-child {
+  border-bottom: 1px dashed #777;
+}
+
+.RecordsItem:hover {
+  background-color: #ddd;
+}
+
+.RecordsItem-line1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.RecordsItem-arrow {
+  margin: 0 10px;
+  font-size: 16px;
+  display: inline-block;
+  transform: translateY(1px);
+}
+
+.RecordsItem-line2 {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.RecordsItem-amount {
+  margin-left: 20px;
+}
