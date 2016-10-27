@@ -172,6 +172,10 @@ class RecordForm extends Component {
     return amountRegex.test(trimmedAmount) && parseFloat(trimmedAmount) !== 0;
   }
 
+  isDescriptionValid(description) {
+    return description.trim() !== '';
+  }
+
   isDateValid(date) {
     const timestamp = Date.parse(date);
 
@@ -186,7 +190,7 @@ class RecordForm extends Component {
       lender !== null &&
       borrower !== null &&
       this.isAmountValid(amount) &&
-      description.trim() !== '' &&
+      this.isDescriptionValid(description) &&
       this.isDateValid(date);
 
     return (
@@ -259,7 +263,7 @@ class RecordForm extends Component {
             </label>
             <input
               id="new-record-amount"
-              className="RecordForm-input"
+              className={`RecordForm-input${this.isAmountValid(amount) ? '' : ' invalid-input'}`}
               type="text"
               value={amount}
               onChange={this.onAmountChange}
@@ -273,7 +277,7 @@ class RecordForm extends Component {
             </label>
             <input
               id="new-record-description"
-              className="RecordForm-input"
+              className={`RecordForm-input${this.isDescriptionValid(description) ? '' : ' invalid-input'}`}
               type="text"
               value={description}
               onChange={this.onDescriptionChange}
@@ -287,7 +291,7 @@ class RecordForm extends Component {
             </label>
             <input
               id="new-record-date"
-              className="RecordForm-input"
+              className={`RecordForm-input${this.isDateValid(date) ? '' : ' invalid-input'}`}
               type="date"
               value={date}
               onChange={this.onDateChange}
@@ -302,7 +306,7 @@ class RecordForm extends Component {
                 className="small-button"
                 type="submit"
                 disabled={!isValid}>
-                Add
+                Create New Record
               </button>
           }
           {
