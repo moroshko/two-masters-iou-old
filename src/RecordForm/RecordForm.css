@@ -1,70 +1,71 @@
-.NewRecord-container {
+.RecordForm-container {
   margin-top: 30px;
 }
 
-.NewRecord-lender-and-borrower-container {
+.RecordForm-lender-and-borrower-container {
   text-align: center;
 }
 
-.NewRecord-lender-container {
+.RecordForm-lender-container {
   display: inline-block;
 }
 
-.NewRecord-arrow {
+.RecordForm-arrow {
   display: inline-block;
   vertical-align: top;
-  font-size: 40px;
+  font-size: 36px;
   padding: 24px 30px;
 }
 
-.NewRecord-borrower-container {
+.RecordForm-borrower-container {
   display: inline-block;
 }
 
-.NewRecord-lender-button {
+.RecordForm-lender-button {
   width: 150px;
   margin-top: 1px;
 }
 
-.NewRecord-lender-button:focus {
+.RecordForm-lender-button:focus {
   box-shadow: 0 0 0 1px black;
 }
 
-.NewRecord-lender-selected {
+.RecordForm-lender-selected {
   background-color: #b6fab6;
 }
 
-.NewRecord-borrower-button {
+.RecordForm-borrower-button {
   width: 150px;
   margin-top: 1px;
 }
 
-.NewRecord-borrower-button:focus {
+.RecordForm-borrower-button:focus {
   box-shadow: 0 0 0 1px black;
 }
 
-.NewRecord-borrower-selected {
+.RecordForm-borrower-selected {
   background-color: #ffbaba;
 }
 
-.NewRecord-text-fields-container {
+.RecordForm-text-fields-container {
   margin-top: 40px;
 }
 
-.NewRecord-label {
+.RecordForm-label {
   width: 150px;
 }
 
-.NewRecord-input {
-  width: 280px;
+.RecordForm-input {
+  width: 260px;
 }
 
-.NewRecord-footer {
+.RecordForm-footer {
   margin: 30px 0 0 160px;
+  height: 22px;
   font-size: 14px;
 }
 
-.NewRecord-sorry {
+.RecordForm-sorry {
   margin-left: 30px;
   font-size: 14px;
 }

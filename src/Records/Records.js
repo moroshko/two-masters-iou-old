@@ -66,22 +66,43 @@ class Records extends Component {
     const day = date.slice(8, 10);
 
     if (date.startsWith(currentYear)) {
-      return `${month} ${day}`;
+      return `${day} ${month}`;
     }
 
     const year = date.slice(0, 4);
 
-    return `${month} ${day}, ${year}`;
+    return `${day} ${month}, ${year}`;
+  }
+
+  shortenLenderOrBorrower(lenderOrBorrower) {
+    switch (lenderOrBorrower) {
+      case 'leva': return 'L';
+      case 'danik': return 'D';
+      case '2masters': return '2M';
+      default: return '?';
+    }
   }
 
   renderRecord = record => {
     return (
-      <li key={record.key}>
-        <div>
-          {this.renderDate(record.date)}
+      <li className="Records-list-item" key={record.key}>
+        <div className="Records-list-item-line1">
+          <div className="Records-list-item-date">
+            {this.renderDate(record.date)}
+          </div>
+          <div>
+            {this.shortenLenderOrBorrower(record.lender)}
+            <span className="Records-list-item-arrow">➝</span>
+            {this.shortenLenderOrBorrower(record.borrower)}
+          </div>
         </div>
-        <div>
-          {record.description}
+        <div className="Records-list-item-line2">
+          <div className="Records-list-item-description">
+            {record.description}
+          </div>
+          <div className="Records-list-item-amount">
+            ${record.amount}
+          </div>
         </div>
       </li>
     );
@@ -95,7 +116,7 @@ class Records extends Component {
         {
           loading ?
             'Loading...' :
-            <ul>
+            <ul className="Records-list">
               {records.reverse().map(this.renderRecord)}
             </ul>
         }

@@ -1,11 +1,12 @@
 .App-container {
-  margin: 30px auto 0;
+  margin: 0 auto 50px;
   width: 450px;
   font-family: monospace;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .App-loading {
+  margin-top: 20px;
   text-align: center;
 }
 
@@ -29,7 +30,7 @@ button:disabled {
 }
 
 button.big-button {
-  font-size: 20px;
+  font-size: 18px;
   padding: 6px 15px;
 }
 
@@ -40,7 +41,7 @@ button.small-button {
 
 input {
   font-family: monospace;
-  font-size: 20px;
+  font-size: 18px;
   padding: 0;
   border: 0;
   border-bottom: 1px solid black;

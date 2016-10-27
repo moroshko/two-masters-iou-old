@@ -65,7 +65,7 @@ class Login extends Component {
     const { email, password, loading, error } = this.state;
 
     return (
-      <form onSubmit={this.login}>
+      <form className="Login-container" onSubmit={this.login}>
         {/* https://medium.com/paul-jaworski/turning-off-autocomplete-in-chrome-ee3ff8ef0908 */}
         <input type="hidden" value="whatever" />
         <div className="field-container">

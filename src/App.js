@@ -3,7 +3,7 @@ import Rebase from 're-base';
 import Login from './Login/Login';
 import Logout from './Logout/Logout';
 import Balance from './Balance/Balance';
-import NewRecord from './NewRecord/NewRecord';
+import RecordForm from './RecordForm/RecordForm';
 import Records from './Records/Records';
 import './App.css';
 
@@ -72,7 +72,7 @@ class App extends Component {
                   isLogoutCollapsed={isLogoutCollapsed}
                   onGearClick={this.toggleIsLogoutCollapsed}
                 />
-                <NewRecord />
+                <RecordForm />
                 <Records />
               </div> :
               <Login />

@@ -1,9 +1,13 @@
+.Login-container {
+  margin-top: 50px;
+}
+
 .Login-label {
   width: 120px;
 }
 
 .Login-input {
-  width: 320px;
+  width: 290px;
 }
 
 .Login-footer {
