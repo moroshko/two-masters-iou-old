@@ -48,8 +48,16 @@ class Records extends Component {
     base.removeBinding(this.ref);
   }
 
+  onRecordItemClick = record => {
+    const { editRecordKey } = this.state;
+
+    this.setState({
+      editRecordKey: record.key === editRecordKey ? null : record.key
+    });
+  };
+
   render() {
-    const { loading, records } = this.state;
+    const { loading, records, editRecordKey } = this.state;
 
     return (
       <div className="Records-container">
@@ -58,8 +66,14 @@ class Records extends Component {
             'Loading...' :
             <ul className="Records-list">
               {
-                records.reverse().map(record => (
-                  <RecordsItem record={record} />
+                // .slice() is important here because .reverse() mutating the array
+                records.slice().reverse().map(record => (
+                  <RecordsItem
+                    record={record}
+                    onClick={this.onRecordItemClick}
+                    isEdited={record.key === editRecordKey}
+                    key={record.key}
+                  />
                 ))
               }
             </ul>

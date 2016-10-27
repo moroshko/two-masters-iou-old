@@ -18,7 +18,9 @@ const MONTHS = {
 
 class RecordsItem extends Component {
   static propTypes = {
-    record: PropTypes.object.isRequired
+    record: PropTypes.object.isRequired,
+    onClick: PropTypes.func.isRequired,
+    isEdited: PropTypes.bool.isRequired
   };
 
   renderDate(date) {
@@ -44,29 +46,57 @@ class RecordsItem extends Component {
     }
   }
 
-  render() {
-    const { record } = this.props;
+  onClick = () => {
+    const { record, onClick } = this.props;
+
+    onClick(record);
+  };
+
+  renderRecord() {
+    const { record, isEdited } = this.props;
 
     return (
-      <li className="RecordsItem" key={record.key}>
-        <div className="RecordsItem-line1">
+      <div
+        className={`RecordsItem-record${isEdited ? ' RecordsItem-record-edited' : ''}`}
+        onClick={this.onClick}
+        title={isEdited ? 'Click to cancel edit' : 'Click to edit'}>
+        <div className="RecordsItem-record-line1">
           <div>
             {this.renderDate(record.date)}
           </div>
           <div>
             {this.shortenLenderOrBorrower(record.lender)}
-            <span className="RecordsItem-arrow">➝</span>
+            <span className="RecordsItem-record-arrow">➝</span>
             {this.shortenLenderOrBorrower(record.borrower)}
           </div>
         </div>
-        <div className="RecordsItem-line2">
+        <div className="RecordsItem-record-line2">
           <div>
             {record.description}
           </div>
-          <div className="RecordsItem-amount">
+          <div className="RecordsItem-record-amount">
             ${record.amount}
           </div>
         </div>
+      </div>
+    );
+  }
+
+  renderEditForm() {
+    return (
+      <div>
+        Edit form here
+      </div>
+    );
+  }
+
+  render() {
+    const { isEdited } = this.props;
+
+    return (
+      <li className="RecordsItem">
+        {this.renderRecord()}
+        {isEdited ? this.renderEditForm() : null}
       </li>
     );
   }
