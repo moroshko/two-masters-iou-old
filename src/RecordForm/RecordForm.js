@@ -1,200 +1,52 @@
 import React, { Component, PropTypes } from 'react';
+import { getToday, isAmountValid, isDescriptionValid, isDateValid } from '../helpers';
 import './RecordForm.css';
 
-const amountRegex = /^\d+(\.\d{1,2})?$/;
-
 class RecordForm extends Component {
-  static contextTypes = {
-    base: PropTypes.object
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    lender: PropTypes.string,
+    onLenderChange: PropTypes.func.isRequired,
+    borrower: PropTypes.string,
+    onBorrowerChange: PropTypes.func.isRequired,
+    amount: PropTypes.string,
+    onAmountChange: PropTypes.func.isRequired,
+    description: PropTypes.string,
+    onDescriptionChange: PropTypes.func.isRequired,
+    date: PropTypes.string,
+    onDateChange: PropTypes.func.isRequired
   };
 
-  constructor() {
+  static defaultProps = {
+    lender: null,
+    borrower: null,
+    amount: '',
+    description: '',
+    date: getToday()
+  };
+
+  constructor(props) {
     super();
 
-    this.state = {
-      lender: null,
-      borrower: null,
-      amount: '',
-      description: '',
-      date: this.getToday(),
-      loading: false,
-      error: null
-    };
-  }
+    this.onLenderChangeToLeva = props.onLenderChange.bind(this, 'leva');
+    this.onLenderChangeToDanik = props.onLenderChange.bind(this, 'danik');
+    this.onLenderChangeTo2Masters = props.onLenderChange.bind(this, '2masters');
 
-  getToday() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth() + 1;
-    const day = now.getDate();
-
-    return `${year}-${month < 10 ? `0${month}` : month}-${day}`;
-  }
-
-  onLenderChangeToLeva = () => {
-    this.setState({
-      lender: 'leva',
-      borrower: null
-    });
-  };
-
-  onLenderChangeToDanik = () => {
-    this.setState({
-      lender: 'danik',
-      borrower: null
-    });
-  };
-
-  onLenderChangeTo2Masters = () => {
-    this.setState({
-      lender: '2masters',
-      borrower: null
-    });
-  };
-
-  onBorrowerChangeToLeva = () => {
-    this.setState({
-      borrower: 'leva'
-    });
-  };
-
-  onBorrowerChangeToDanik = () => {
-    this.setState({
-      borrower: 'danik'
-    });
-  };
-
-  onBorrowerChangeTo2Masters = () => {
-    this.setState({
-      borrower: '2masters'
-    });
-  };
-
-  onAmountChange = event => {
-    this.setState({
-      amount: event.target.value
-    });
-  };
-
-  onDescriptionChange = event => {
-    this.setState({
-      description: event.target.value
-    });
-  };
-
-  onDateChange = event => {
-    this.setState({
-      date: event.target.value
-    });
-  };
-
-  getLevaOwesDanikDiff(newRecord) {
-    if (newRecord.lender === '2masters' && newRecord.borrower === 'danik') {
-      return -newRecord.amount / 2;
-    }
-
-    if (newRecord.lender === '2masters' && newRecord.borrower === 'leva') {
-      return newRecord.amount / 2;
-    }
-
-    if (newRecord.lender === 'leva' && newRecord.borrower === '2masters') {
-      return -newRecord.amount / 2;
-    }
-
-    if (newRecord.lender === 'danik' && newRecord.borrower === '2masters') {
-      return newRecord.amount / 2;
-    }
-
-    if (newRecord.lender === 'leva' && newRecord.borrower === 'danik') {
-      return -newRecord.amount;
-    }
-
-    if (newRecord.lender === 'danik' && newRecord.borrower === 'leva') {
-      return newRecord.amount;
-    }
-
-    return 0;
-  }
-
-  addNewRecord = event => {
-    event.preventDefault();
-
-    this.setState({
-      loading: true,
-      error: null
-    });
-
-    const { base } = this.context;
-    const { lender, borrower, amount, description, date } = this.state;
-    const newRecord = {
-      lender: lender,
-      borrower: borrower,
-      amount: parseFloat(amount.trim()),
-      description: description.trim(),
-      date: date
-    };
-    const levaOwesDanikDiff = this.getLevaOwesDanikDiff(newRecord);
-
-    base.push('records', {
-      data: newRecord,
-      then: error => {
-        if (error) {
-          this.setState({
-            lender: null,
-            borrower: null,
-            amount: '',
-            description: '',
-            date: this.getToday(),
-            loading: false,
-            error: 'Something went wrong'
-          });
-        } else {
-          base.database().ref('/levaOwesDanik')
-            .transaction(levaOwesDanik => levaOwesDanik + levaOwesDanikDiff, error => {
-              this.setState({
-                lender: null,
-                borrower: null,
-                amount: '',
-                description: '',
-                date: this.getToday(),
-                loading: false,
-                error: error === null ? null : 'Something went wrong'
-              });
-            });
-        }
-      }
-    })
-  };
-
-  isAmountValid(amount) {
-    const trimmedAmount = amount.trim();
-
-    return amountRegex.test(trimmedAmount) && parseFloat(trimmedAmount) !== 0;
-  }
-
-  isDescriptionValid(description) {
-    return description.trim() !== '';
-  }
-
-  isDateValid(date) {
-    const timestamp = Date.parse(date);
-
-    return !isNaN(timestamp) &&
-      timestamp > 1420070400000 && // new Date('2015-01-01').getTime()
-      timestamp < 3313526400000;   // new Date('2075-01-01').getTime()
+    this.onBorrowerChangeToLeva = props.onBorrowerChange.bind(this, 'leva');
+    this.onBorrowerChangeToDanik = props.onBorrowerChange.bind(this, 'danik');
+    this.onBorrowerChangeTo2Masters = props.onBorrowerChange.bind(this, '2masters');
   }
 
   render() {
-    const { lender, borrower, amount, description, date, loading, error } = this.state;
-    const isValid =
-      lender !== null &&
-      borrower !== null &&
-      this.isAmountValid(amount) &&
-      this.isDescriptionValid(description) &&
-      this.isDateValid(date);
+    const {
+      id, lender, borrower,
+      amount, onAmountChange,
+      description, onDescriptionChange,
+      date, onDateChange
+    } = this.props;
 
     return (
-      <form className="RecordForm-container" onSubmit={this.addNewRecord}>
+      <div>
         <div className="RecordForm-lender-and-borrower-container">
           <div className="RecordForm-lender-container">
             <div>
@@ -255,67 +107,49 @@ class RecordForm extends Component {
             </div>
           </div>
         </div>
-
         <div className="RecordForm-text-fields-container">
           <div className="field-container">
-            <label className="RecordForm-label" htmlFor="new-record-amount">
+            <label className="RecordForm-label" htmlFor={`${id}-amount`}>
               Amount:
             </label>
             <input
               id="new-record-amount"
-              className={`RecordForm-input${this.isAmountValid(amount) ? '' : ' invalid-input'}`}
+              className={`RecordForm-input${isAmountValid(amount) ? '' : ' invalid-input'}`}
               type="text"
               value={amount}
-              onChange={this.onAmountChange}
+              onChange={onAmountChange}
               autoComplete="off"
               spellCheck="false"
             />
           </div>
           <div className="field-container">
-            <label className="RecordForm-label" htmlFor="new-record-description">
+            <label className="RecordForm-label" htmlFor={`${id}-description`}>
               Description:
             </label>
             <input
               id="new-record-description"
-              className={`RecordForm-input${this.isDescriptionValid(description) ? '' : ' invalid-input'}`}
+              className={`RecordForm-input${isDescriptionValid(description) ? '' : ' invalid-input'}`}
               type="text"
               value={description}
-              onChange={this.onDescriptionChange}
+              onChange={onDescriptionChange}
               autoComplete="off"
               spellCheck="false"
             />
           </div>
           <div className="field-container">
-            <label className="RecordForm-label" htmlFor="new-record-date">
+            <label className="RecordForm-label" htmlFor={`${id}-date`}>
               Date:
             </label>
             <input
               id="new-record-date"
-              className={`RecordForm-input${this.isDateValid(date) ? '' : ' invalid-input'}`}
+              className={`RecordForm-input${isDateValid(date) ? '' : ' invalid-input'}`}
               type="date"
               value={date}
-              onChange={this.onDateChange}
+              onChange={onDateChange}
             />
           </div>
         </div>
-        <div className="RecordForm-footer">
-          {
-            loading ?
-              'Loading...' :
-              <button
-                className="small-button"
-                type="submit"
-                disabled={!isValid}>
-                Create New Record
-              </button>
-          }
-          {
-            error ?
-              <span className="RecordForm-sorry error-message">{error}</span> :
-              null
-          }
-        </div>
-      </form>
+      </div>
     );
   }
 }

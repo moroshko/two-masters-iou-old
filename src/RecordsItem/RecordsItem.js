@@ -1,20 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { formatRecordDate, shortenLenderOrBorrower } from '../helpers';
 import './RecordsItem.css';
-
-const MONTHS = {
-  '01': 'Jan',
-  '02': 'Feb',
-  '03': 'Mar',
-  '04': 'Apr',
-  '05': 'May',
-  '06': 'Jun',
-  '07': 'Jul',
-  '08': 'Aug',
-  '09': 'Sep',
-  '10': 'Oct',
-  '11': 'Nov',
-  '12': 'Dec'
-};
 
 class RecordsItem extends Component {
   static propTypes = {
@@ -22,29 +8,6 @@ class RecordsItem extends Component {
     onClick: PropTypes.func.isRequired,
     isEdited: PropTypes.bool.isRequired
   };
-
-  renderDate(date) {
-    const currentYear = (new Date()).getFullYear();
-    const month = MONTHS[date.slice(5, 7)];
-    const day = date.slice(8, 10);
-
-    if (date.startsWith(currentYear)) {
-      return `${day} ${month}`;
-    }
-
-    const year = date.slice(0, 4);
-
-    return `${day} ${month}, ${year}`;
-  }
-
-  shortenLenderOrBorrower(lenderOrBorrower) {
-    switch (lenderOrBorrower) {
-      case 'leva': return 'L';
-      case 'danik': return 'D';
-      case '2masters': return '2M';
-      default: return '?';
-    }
-  }
 
   onClick = () => {
     const { record, onClick } = this.props;
@@ -62,12 +25,12 @@ class RecordsItem extends Component {
         title={isEdited ? 'Click to cancel edit' : 'Click to edit'}>
         <div className="RecordsItem-record-line1">
           <div>
-            {this.renderDate(record.date)}
+            {formatRecordDate(record.date)}
           </div>
           <div>
-            {this.shortenLenderOrBorrower(record.lender)}
+            {shortenLenderOrBorrower(record.lender)}
             <span className="RecordsItem-record-arrow">➝</span>
-            {this.shortenLenderOrBorrower(record.borrower)}
+            {shortenLenderOrBorrower(record.borrower)}
           </div>
         </div>
         <div className="RecordsItem-record-line2">
