@@ -56,6 +56,12 @@ class Records extends Component {
     });
   };
 
+  onUpdateSuccess = () => {
+    this.setState({
+      editRecordKey: null
+    });
+  };
+
   render() {
     const { loading, records, editRecordKey } = this.state;
 
@@ -72,6 +78,7 @@ class Records extends Component {
                     record={record}
                     onClick={this.onRecordItemClick}
                     isEdited={record.key === editRecordKey}
+                    onUpdateSuccess={this.onUpdateSuccess}
                     key={record.key}
                   />
                 ))

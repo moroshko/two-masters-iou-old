@@ -9,7 +9,8 @@ class EditRecord extends Component {
   };
 
   static propTypes = {
-    record: PropTypes.object.isRequired
+    record: PropTypes.object.isRequired,
+    onUpdateSuccess: PropTypes.func.isRequired
   };
 
   constructor({ record }) {
@@ -70,16 +71,41 @@ class EditRecord extends Component {
 
     const { base } = this.context;
     const { lender, borrower, amount, description, date } = this.state;
-    const { key } = this.props.record;
-    const editedRecord = {
+    const { record, onUpdateSuccess } = this.props;
+    const { key } = record;
+    const updatedRecord = {
       lender: lender,
       borrower: borrower,
       amount: parseFloat(amount.trim()),
       description: description.trim(),
       date: date
     };
+    const levaOwesDanikDiff =
+      getLevaOwesDanikDiff(updatedRecord) - getLevaOwesDanikDiff(record);
 
-    console.log('saving ', key);
+    base.update(`records/${key}`, { data: updatedRecord })
+      .then(() => {
+        base.database().ref('/levaOwesDanik')
+          .transaction(levaOwesDanik => levaOwesDanik + levaOwesDanikDiff, error => {
+            if (error) {
+              this.setState({
+                loadingSave: false,
+                error: 'Something went wrong'
+              });
+            } else {
+              // On success, we shouldn't update `state.loadingSave`,
+              // because this component will be unmounted,
+              // and React would throw an error.
+              onUpdateSuccess();
+            }
+          });
+      })
+      .catch(error => {
+        this.setState({
+          loadingSave: false,
+          error: 'Something went wrong'
+        });
+      });
   };
 
   deleteRecord = () => {
@@ -95,8 +121,6 @@ class EditRecord extends Component {
     // https://github.com/tylermcginnis/re-base/issues/145
     base.database().ref(`records/${key}`).remove()
       .then(() => {
-        // On success, we shouldn't update the state, because this component
-        // will be unmounted, and React would throw an error.
         base.database().ref('/levaOwesDanik')
           .transaction(levaOwesDanik => levaOwesDanik - getLevaOwesDanikDiff(recordToDelete), error => {
             if (error) {
@@ -105,6 +129,9 @@ class EditRecord extends Component {
                 error: 'Something went wrong'
               });
             }
+            // On success, we shouldn't update `state.loadingDelete`,
+            // because this component will be unmounted,
+            // and React would throw an error.
           });
       })
       .catch(error => {

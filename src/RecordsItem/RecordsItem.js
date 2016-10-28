@@ -7,6 +7,7 @@ class RecordsItem extends Component {
   static propTypes = {
     record: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
+    onUpdateSuccess: PropTypes.func.isRequired,
     isEdited: PropTypes.bool.isRequired
   };
 
@@ -47,14 +48,14 @@ class RecordsItem extends Component {
   }
 
   render() {
-    const { record, isEdited } = this.props;
+    const { record, onUpdateSuccess, isEdited } = this.props;
 
     return (
       <li className="RecordsItem">
         {this.renderRecord()}
         {
           isEdited ?
-            <EditRecord record={record} /> :
+            <EditRecord record={record} onUpdateSuccess={onUpdateSuccess} /> :
             null
         }
       </li>
