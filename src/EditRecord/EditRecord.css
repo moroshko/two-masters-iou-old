@@ -1,0 +1,25 @@
+.EditRecord-container {
+  margin: 30px 0;
+}
+
+.EditRecord-footer {
+  margin: 30px 30px 0 160px;
+  font-size: 14px;
+}
+
+.EditRecord-footer-buttons-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 27px;
+}
+
+.EditRecord-trash-icon {
+  width: 18px;
+  height: 18px;
+  fill: red;
+}
+
+.EditRecord-error {
+  margin-top: 20px;
+}

@@ -16,9 +16,18 @@
   right: 2px;
   top: 2px;
   opacity: 1;
-  box-shadow: none;
+  transition: opacity 0.05s linear;
+}
+
+.Balance-toggle-logout-button:hover {
+  opacity: 1;
 }
 
 .Balance-toggle-logout-button-collapsed {
   opacity: 0.2;
+}
+
+.Balance-gear-icon {
+  width: 16px;
+  height: 16px;
 }

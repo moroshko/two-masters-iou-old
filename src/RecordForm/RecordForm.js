@@ -113,7 +113,7 @@ class RecordForm extends Component {
               Amount:
             </label>
             <input
-              id="new-record-amount"
+              id={`${id}-amount`}
               className={`RecordForm-input${isAmountValid(amount) ? '' : ' invalid-input'}`}
               type="text"
               value={amount}
@@ -127,7 +127,7 @@ class RecordForm extends Component {
               Description:
             </label>
             <input
-              id="new-record-description"
+              id={`${id}-description`}
               className={`RecordForm-input${isDescriptionValid(description) ? '' : ' invalid-input'}`}
               type="text"
               value={description}
@@ -141,7 +141,7 @@ class RecordForm extends Component {
               Date:
             </label>
             <input
-              id="new-record-date"
+              id={`${id}-date`}
               className={`RecordForm-input${isDateValid(date) ? '' : ' invalid-input'}`}
               type="date"
               value={date}

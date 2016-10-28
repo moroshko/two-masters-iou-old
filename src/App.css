@@ -39,9 +39,15 @@ button.small-button {
   padding: 3px 8px;
 }
 
+button.borderless-button,
+button.borderless-button:focus {
+  box-shadow: none;
+}
+
 input {
   font-family: monospace;
   font-size: 18px;
+  height: 27px;
   padding: 0;
   border: 0;
   border-bottom: 1px solid black;

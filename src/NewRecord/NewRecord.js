@@ -53,7 +53,7 @@ class NewRecord extends Component {
     });
   };
 
-  addNewRecord = event => {
+  createNewRecord = event => {
     event.preventDefault();
 
     this.setState({
@@ -71,44 +71,41 @@ class NewRecord extends Component {
       date: date
     };
 
-    base.push('records', {
-      data: newRecord,
-      then: error => {
-        if (error) {
-          this.setState({
-            lender: null,
-            borrower: null,
-            amount: '',
-            description: '',
-            date: getToday(),
-            loading: false,
-            error: 'Something went wrong'
-          });
-        } else {
-          base.database().ref('/levaOwesDanik')
-            .transaction(levaOwesDanik => levaOwesDanik + getLevaOwesDanikDiff(newRecord), error => {
-              this.setState({
-                lender: null,
-                borrower: null,
-                amount: '',
-                description: '',
-                date: getToday(),
-                loading: false,
-                error: error === null ? null : 'Something went wrong'
-              });
+    base.push('records', { data: newRecord })
+      .then(() => {
+        base.database().ref('/levaOwesDanik')
+          .transaction(levaOwesDanik => levaOwesDanik + getLevaOwesDanikDiff(newRecord), error => {
+            this.setState({
+              lender: null,
+              borrower: null,
+              amount: '',
+              description: '',
+              date: getToday(),
+              loading: false,
+              error: error ? 'Something went wrong' : null
             });
-        }
-      }
-    })
+          });
+      })
+      .catch(error => {
+        this.setState({
+          lender: null,
+          borrower: null,
+          amount: '',
+          description: '',
+          date: getToday(),
+          loading: false,
+          error: 'Something went wrong'
+        });
+      });
   };
 
   render() {
     const { lender, borrower, amount, description, date, loading, error } = this.state;
 
     return (
-      <form className="NewRecord-container" onSubmit={this.addNewRecord}>
+      <form className="NewRecord-container" onSubmit={this.createNewRecord}>
         <RecordForm
-          id="new-form"
+          id="new-record"
           lender={lender}
           onLenderChange={this.onLenderChange}
           borrower={borrower}
@@ -123,7 +120,7 @@ class NewRecord extends Component {
         <div className="NewRecord-footer">
           {
             loading ?
-              'Loading...' :
+              'Creating...' :
               <button
                 className="small-button"
                 type="submit"

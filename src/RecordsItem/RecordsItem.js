@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import EditRecord from '../EditRecord/EditRecord';
 import { formatRecordDate, shortenLenderOrBorrower } from '../helpers';
 import './RecordsItem.css';
 
@@ -45,21 +46,17 @@ class RecordsItem extends Component {
     );
   }
 
-  renderEditForm() {
-    return (
-      <div>
-        Edit form here
-      </div>
-    );
-  }
-
   render() {
-    const { isEdited } = this.props;
+    const { record, isEdited } = this.props;
 
     return (
       <li className="RecordsItem">
         {this.renderRecord()}
-        {isEdited ? this.renderEditForm() : null}
+        {
+          isEdited ?
+            <EditRecord record={record} /> :
+            null
+        }
       </li>
     );
   }
