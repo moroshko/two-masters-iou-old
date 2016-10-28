@@ -136,7 +136,7 @@ class RecordForm extends Component {
             <input
               id={`${id}-amount`}
               className={`RecordForm-input${!isAmountDirty || isAmountValid(amount) ? '' : ' invalid-input'}`}
-              type="text"
+              type="number"
               value={amount}
               onChange={this.onAmountChange}
               autoComplete="off"
