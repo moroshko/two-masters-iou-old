@@ -28,6 +28,11 @@ class RecordForm extends Component {
   constructor(props) {
     super();
 
+    this.state = {
+      isAmountDirty: false,
+      isDescriptionDirty: false
+    };
+
     this.onLenderChangeToLeva = props.onLenderChange.bind(this, 'leva');
     this.onLenderChangeToDanik = props.onLenderChange.bind(this, 'danik');
     this.onLenderChangeTo2Masters = props.onLenderChange.bind(this, '2masters');
@@ -37,13 +42,29 @@ class RecordForm extends Component {
     this.onBorrowerChangeTo2Masters = props.onBorrowerChange.bind(this, '2masters');
   }
 
+  onAmountChange = event => {
+    const { onAmountChange } = this.props;
+
+    this.setState({
+      isAmountDirty: true
+    });
+
+    onAmountChange(event);
+  };
+
+  onDescriptionChange = event => {
+    const { onDescriptionChange } = this.props;
+
+    this.setState({
+      isDescriptionDirty: true
+    });
+
+    onDescriptionChange(event);
+  };
+
   render() {
-    const {
-      id, lender, borrower,
-      amount, onAmountChange,
-      description, onDescriptionChange,
-      date, onDateChange
-    } = this.props;
+    const { isAmountDirty, isDescriptionDirty } = this.state;
+    const { id, lender, borrower, amount, description, date, onDateChange } = this.props;
 
     return (
       <div>
@@ -114,10 +135,10 @@ class RecordForm extends Component {
             </label>
             <input
               id={`${id}-amount`}
-              className={`RecordForm-input${isAmountValid(amount) ? '' : ' invalid-input'}`}
+              className={`RecordForm-input${!isAmountDirty || isAmountValid(amount) ? '' : ' invalid-input'}`}
               type="text"
               value={amount}
-              onChange={onAmountChange}
+              onChange={this.onAmountChange}
               autoComplete="off"
               spellCheck="false"
             />
@@ -128,10 +149,10 @@ class RecordForm extends Component {
             </label>
             <input
               id={`${id}-description`}
-              className={`RecordForm-input${isDescriptionValid(description) ? '' : ' invalid-input'}`}
+              className={`RecordForm-input${!isDescriptionDirty || isDescriptionValid(description) ? '' : ' invalid-input'}`}
               type="text"
               value={description}
-              onChange={onDescriptionChange}
+              onChange={this.onDescriptionChange}
               autoComplete="off"
               spellCheck="false"
             />
