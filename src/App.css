@@ -78,3 +78,23 @@ label {
 .error-message {
   color: red;
 }
+
+@media (max-width: 420px) {
+  button {
+    height: 47px;
+  }
+
+  input {
+    height: 47px;
+  }
+
+  label {
+    text-align: left;
+    margin-right: 0;
+  }
+
+  .field-container {
+    height: 50px;
+    margin-top: 60px;
+  }
+}
