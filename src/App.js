@@ -70,7 +70,7 @@ class App extends Component {
                 />
                 <Balance
                   isLogoutCollapsed={isLogoutCollapsed}
-                  onGearClick={this.toggleIsLogoutCollapsed}
+                  onProfileIconClick={this.toggleIsLogoutCollapsed}
                 />
                 <NewRecord />
                 <Records />

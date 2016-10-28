@@ -1,5 +1,18 @@
 .Login-container {
-  margin-top: 50px;
+  margin-top: 30px;
+}
+
+.Login-header {
+  font-size: 60px;
+  margin-bottom: 30px;
+  padding-left: 130px;
+  cursor: default;
+}
+
+.Login-coin-icon {
+  width: 36px;
+  height: 36px;
+  margin: 0 10px 0 8px;
 }
 
 .Login-label {

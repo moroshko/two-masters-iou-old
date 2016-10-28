@@ -8,7 +8,7 @@ class Balance extends Component {
 
   static propTypes = {
     isLogoutCollapsed: PropTypes.bool.isRequired,
-    onGearClick: PropTypes.func.isRequired
+    onProfileIconClick: PropTypes.func.isRequired
   };
 
   constructor() {
@@ -58,7 +58,7 @@ class Balance extends Component {
 
   render() {
     const { loading, levaOwesDanik } = this.state;
-    const { isLogoutCollapsed, onGearClick } = this.props;
+    const { isLogoutCollapsed, onProfileIconClick } = this.props;
     const levaOwesDanikRounded = Math.round(levaOwesDanik * 100) / 100;
 
     return (
@@ -66,10 +66,10 @@ class Balance extends Component {
         {loading ? 'Loading...' : this.renderBalance(levaOwesDanikRounded)}
         <button
           className={`Balance-toggle-logout-button${isLogoutCollapsed ? ' Balance-toggle-logout-button-collapsed' : ''} small-button borderless-button`}
-          onClick={onGearClick}
+          onClick={onProfileIconClick}
           title={isLogoutCollapsed ? 'Show logout' : 'Hide logout'}>
-          <svg className="Balance-gear-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-            <path d="M 28.053176443624363 0 L 35.94682355637564 0 L 37.86768066444777 10.796926552500324 A 22 22 0 0 1 42.84376022905525 12.858086195608351 L 51.8365912971095 6.5817573011704615 L 57.41824269882954 12.1634087028905 L 51.14191380439165 21.156239770944754 A 22 22 0 0 1 53.203073447499676 26.132319335552236 L 64 28.053176443624363 L 64 35.94682355637564 L 53.203073447499676 37.86768066444777 A 22 22 0 0 1 51.14191380439165 42.84376022905525 L 57.41824269882954 51.8365912971095 L 51.8365912971095 57.41824269882954 L 42.84376022905525 51.14191380439165 A 22 22 0 0 1 37.86768066444777 53.203073447499676 L 35.94682355637564 64 L 28.053176443624363 64 L 26.13231933555224 53.203073447499676 A 22 22 0 0 1 21.15623977094475 51.14191380439165 L 12.1634087028905 57.41824269882954 L 6.5817573011704615 51.8365912971095 L 12.858086195608351 42.84376022905525 A 22 22 0 0 1 10.796926552500327 37.867680664447775 L 0 35.94682355637565 L 0 28.05317644362437 L 10.79692655250032 26.132319335552246 A 22 22 0 0 1 12.858086195608351 21.156239770944744 L 6.581757301170455 12.163408702890502 L 12.163408702890493 6.581757301170461 L 21.156239770944747 12.858086195608351 A 22 22 0 0 1 26.132319335552232 10.796926552500324 M 32 20 A 12 12 0 0 0 32 44 A 12 12 0 0 0 32 20"></path>
+          <svg className="Balance-profile-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+            <path d="M53 13.1c-21 9.5-21.3 39.3-.5 49.4 2.2 1 6.8 2.1 10.3 2.3 5.5.4 7.1.1 12.7-2.7 11-5.4 16.2-14.5 15.3-26.5C89.6 21 78.7 11 64 11c-4.4 0-8 .7-11 2.1zM40 76.8c-5.7 5.7-8.8 9.8-10.9 14.3-2.6 5.6-5.1 15.8-5.1 21.1 0 1.7 2.6 1.8 40 1.8s40-.1 40-1.8c0-5.2-2.4-15.5-4.9-20.7-2.7-5.9-11.7-16.6-17-20.4-2.6-1.9-2.8-1.9-8.1-.1-8.1 2.8-14.8 2.4-24.3-1.5-1.3-.5-3.6 1.2-9.7 7.3z"/>
           </svg>
         </button>
       </div>

@@ -26,8 +26,19 @@
   box-shadow: 0 0 0 1px black;
 }
 
+/* This brings button's box-shadow on top of the adjacent button. */
+.RecordForm-lender-button:hover {
+  position: relative;
+  z-index: 1;
+}
+
 .RecordForm-lender-selected {
   background-color: #b6fab6;
+  cursor: default;
+}
+
+.RecordForm-lender-selected:hover {
+  box-shadow: 0 0 0 1px black;
 }
 
 .RecordForm-borrower-button {
@@ -39,8 +50,19 @@
   box-shadow: 0 0 0 1px black;
 }
 
+/* This brings button's box-shadow on top of the adjacent button. */
+.RecordForm-borrower-button:hover {
+  position: relative;
+  z-index: 1;
+}
+
 .RecordForm-borrower-selected {
   background-color: #ffbaba;
+  cursor: default;
+}
+
+.RecordForm-lender-borrower:hover {
+  box-shadow: 0 0 0 1px black;
 }
 
 .RecordForm-text-fields-container {
