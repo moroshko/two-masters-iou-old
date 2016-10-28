@@ -51,7 +51,7 @@ input {
   padding: 0;
   border: 0;
   border-bottom: 1px solid black;
-  background-color: transparent;
+  background-color: transparent; /* This removes the gray background in date inputs on Android in Chrome. */
 }
 
 input:focus {
