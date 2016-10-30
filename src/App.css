@@ -111,6 +111,7 @@ label::after {
     width: 100%;
     border: 0;
     box-shadow: 0 0 0 1px black;
+    -webkit-appearance: none; /* Allows box-shadow to be rendered properly on iOS */
   }
 
   input:focus {
