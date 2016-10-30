@@ -18,7 +18,12 @@
 }
 
 .RecordsItem-record-edited {
-  background-color: #ddd;
+  background-color: #000;
+  color: #fff;
+}
+
+.RecordsItem-record-edited:hover {
+  background-color: #000;
 }
 
 .RecordsItem-record-line1 {

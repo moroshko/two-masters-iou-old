@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { getToday, isAmountValid, isDescriptionValid, isDateValid } from '../helpers';
+import { isAmountValid, isDescriptionValid, isDateValid } from '../helpers';
 import './RecordForm.css';
 
 class RecordForm extends Component {
@@ -11,9 +11,13 @@ class RecordForm extends Component {
     onBorrowerChange: PropTypes.func.isRequired,
     amount: PropTypes.string,
     onAmountChange: PropTypes.func.isRequired,
+    isAmountDirty: PropTypes.bool.isRequired,
+    onIsAmountDirtyChange: PropTypes.func.isRequired,
     description: PropTypes.string,
     onDescriptionChange: PropTypes.func.isRequired,
-    date: PropTypes.string,
+    isDescriptionDirty: PropTypes.bool.isRequired,
+    onIsDescriptionDirtyChange: PropTypes.func.isRequired,
+    date: PropTypes.string.isRequired,
     onDateChange: PropTypes.func.isRequired
   };
 
@@ -21,17 +25,11 @@ class RecordForm extends Component {
     lender: null,
     borrower: null,
     amount: '',
-    description: '',
-    date: getToday()
+    description: ''
   };
 
   constructor(props) {
     super();
-
-    this.state = {
-      isAmountDirty: false,
-      isDescriptionDirty: false
-    };
 
     this.onLenderChangeToLeva = props.onLenderChange.bind(this, 'leva');
     this.onLenderChangeToDanik = props.onLenderChange.bind(this, 'danik');
@@ -43,28 +41,27 @@ class RecordForm extends Component {
   }
 
   onAmountChange = event => {
-    const { onAmountChange } = this.props;
-
-    this.setState({
-      isAmountDirty: true
-    });
+    const { onAmountChange, onIsAmountDirtyChange } = this.props;
 
     onAmountChange(event);
+    onIsAmountDirtyChange(true);
   };
 
   onDescriptionChange = event => {
-    const { onDescriptionChange } = this.props;
-
-    this.setState({
-      isDescriptionDirty: true
-    });
+    const { onDescriptionChange, onIsDescriptionDirtyChange } = this.props;
 
     onDescriptionChange(event);
+    onIsDescriptionDirtyChange(true);
   };
 
   render() {
-    const { isAmountDirty, isDescriptionDirty } = this.state;
-    const { id, lender, borrower, amount, description, date, onDateChange } = this.props;
+    const {
+      id,
+      lender, borrower,
+      amount, isAmountDirty,
+      description, isDescriptionDirty,
+      date, onDateChange
+    } = this.props;
 
     return (
       <div>
@@ -131,7 +128,7 @@ class RecordForm extends Component {
         <div className="RecordForm-text-fields-container">
           <div className="field-container">
             <label className="RecordForm-label" htmlFor={`${id}-amount`}>
-              Amount:
+              Amount
             </label>
             <input
               id={`${id}-amount`}
@@ -145,7 +142,7 @@ class RecordForm extends Component {
           </div>
           <div className="field-container">
             <label className="RecordForm-label" htmlFor={`${id}-description`}>
-              Description:
+              Description
             </label>
             <input
               id={`${id}-description`}
@@ -159,7 +156,7 @@ class RecordForm extends Component {
           </div>
           <div className="field-container">
             <label className="RecordForm-label" htmlFor={`${id}-date`}>
-              Date:
+              Date
             </label>
             <input
               id={`${id}-date`}

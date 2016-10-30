@@ -11,10 +11,21 @@ class RecordsItem extends Component {
     isEdited: PropTypes.bool.isRequired
   };
 
+  storeContainerReference = container => {
+    if (container !== null) {
+      this.container = container;
+    }
+  };
+
   onClick = () => {
     const { record, onClick } = this.props;
 
     onClick(record);
+
+    // Scroll after the EditRecord form is mounted.
+    setTimeout(() => {
+      this.container.scrollIntoView({ behavior: 'smooth' });
+    });
   };
 
   renderRecord() {
@@ -24,7 +35,8 @@ class RecordsItem extends Component {
       <div
         className={`RecordsItem-record${isEdited ? ' RecordsItem-record-edited' : ''}`}
         onClick={this.onClick}
-        title={isEdited ? 'Click to cancel edit' : 'Click to edit'}>
+        title={isEdited ? 'Click to cancel edit' : 'Click to edit'}
+        ref={this.storeContainerReference}>
         <div className="RecordsItem-record-line1">
           <div>
             {formatRecordDate(record.date)}
@@ -47,17 +59,23 @@ class RecordsItem extends Component {
     );
   }
 
-  render() {
+  renderEditForm() {
     const { record, onUpdateSuccess, isEdited } = this.props;
 
+    if (isEdited) {
+      return (
+        <EditRecord record={record} onUpdateSuccess={onUpdateSuccess} />
+      );
+    }
+
+    return null
+  }
+
+  render() {
     return (
       <li className="RecordsItem">
         {this.renderRecord()}
-        {
-          isEdited ?
-            <EditRecord record={record} onUpdateSuccess={onUpdateSuccess} /> :
-            null
-        }
+        {this.renderEditForm()}
       </li>
     );
   }

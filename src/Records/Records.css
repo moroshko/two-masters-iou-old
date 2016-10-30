@@ -8,3 +8,13 @@
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
+
+@media (max-width: 420px) {
+  .Records-container {
+    margin-top: 20px;
+  }
+
+  .Records-list {
+    border: 0;
+  }
+}

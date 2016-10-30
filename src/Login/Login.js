@@ -56,7 +56,7 @@ class Login extends Component {
     }, error => {
       this.setState({
         loading: false,
-        error: error === null ? null : 'Sorry mate'
+        error: error === null ? null : 'Something went wrong'
       });
     });
   };
@@ -78,7 +78,7 @@ class Login extends Component {
           <input type="hidden" value="whatever" />
           <div className="field-container">
             <label className="Login-label" htmlFor="login-email">
-              Email:
+              Email
             </label>
             <input
               id="login-email"
@@ -93,7 +93,7 @@ class Login extends Component {
           </div>
           <div className="field-container">
             <label className="Login-label" htmlFor="login-password">
-              Password:
+              Password
             </label>
             <input
               id="login-password"
@@ -105,16 +105,15 @@ class Login extends Component {
             />
           </div>
           <div className="Login-footer">
-            {
-              loading ?
-                'Loading...' :
-                <button className="Login-button big-button" type="submit">
-                  Login
-                </button>
-            }
+            <button
+              className="Login-button big-button"
+              type="submit"
+              disabled={loading}>
+              {loading ? 'Loading...' : 'Login'}
+            </button>
             {
               error ?
-                <span className="Login-sorry error-message">{error}</span> :
+                <div className="Login-error error-message">{error}</div> :
                 null
             }
           </div>

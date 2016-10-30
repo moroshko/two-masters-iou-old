@@ -15,7 +15,9 @@ class NewRecord extends Component {
       lender: null,
       borrower: null,
       amount: '',
+      isAmountDirty: false,
       description: '',
+      isDescriptionDirty: false,
       date: getToday(),
       loading: false,
       error: null
@@ -41,9 +43,21 @@ class NewRecord extends Component {
     });
   };
 
+  onIsAmountDirtyChange = value => {
+    this.setState({
+      isAmountDirty: value
+    });
+  };
+
   onDescriptionChange = event => {
     this.setState({
       description: event.target.value
+    });
+  };
+
+  onIsDescriptionDirtyChange = value => {
+    this.setState({
+      isDescriptionDirty: value
     });
   };
 
@@ -79,7 +93,9 @@ class NewRecord extends Component {
               lender: null,
               borrower: null,
               amount: '',
+              isAmountDirty: false,
               description: '',
+              isDescriptionDirty: false,
               date: getToday(),
               loading: false,
               error: error ? 'Something went wrong' : null
@@ -88,11 +104,6 @@ class NewRecord extends Component {
       })
       .catch(error => {
         this.setState({
-          lender: null,
-          borrower: null,
-          amount: '',
-          description: '',
-          date: getToday(),
           loading: false,
           error: 'Something went wrong'
         });
@@ -100,7 +111,13 @@ class NewRecord extends Component {
   };
 
   render() {
-    const { lender, borrower, amount, description, date, loading, error } = this.state;
+    const {
+      lender, borrower,
+      amount, isAmountDirty,
+      description, isDescriptionDirty,
+      date,
+      loading, error
+    } = this.state;
 
     return (
       <form className="NewRecord-container" onSubmit={this.createNewRecord}>
@@ -112,22 +129,22 @@ class NewRecord extends Component {
           onBorrowerChange={this.onBorrowerChange}
           amount={amount}
           onAmountChange={this.onAmountChange}
+          isAmountDirty={isAmountDirty}
+          onIsAmountDirtyChange={this.onIsAmountDirtyChange}
           description={description}
           onDescriptionChange={this.onDescriptionChange}
+          isDescriptionDirty={isDescriptionDirty}
+          onIsDescriptionDirtyChange={this.onIsDescriptionDirtyChange}
           date={date}
           onDateChange={this.onDateChange}
         />
         <div className="NewRecord-footer">
-          {
-            loading ?
-              'Creating...' :
-              <button
-                className="small-button"
-                type="submit"
-                disabled={!isRecordValid(this.state)}>
-                Create New Record
-              </button>
-          }
+          <button
+            className="small-button"
+            type="submit"
+            disabled={loading || !isRecordValid(this.state)}>
+            {loading ? 'Creating...' : 'Create New Record'}
+          </button>
           {
             error ?
               <span className="NewRecord-error error-message">{error}</span> :

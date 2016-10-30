@@ -24,10 +24,12 @@
 }
 
 .Login-footer {
+  display: flex;
+  justify-content: space-between;
   margin: 30px 0 0 130px;
 }
 
-.Login-sorry {
+.Login-error {
   margin-left: 30px;
 }
 
@@ -48,9 +50,10 @@
 
   .Login-input {
     display: block;
+    width: calc(100% - 20px);
   }
 
   .Login-footer {
-    margin: 80px 0 0 0;
+    margin: 60px 0 0 0;
   }
 }

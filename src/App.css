@@ -1,7 +1,7 @@
 .App-container {
   margin: 0 auto 50px;
-  width: 450px;
-  font-family: monospace;
+  max-width: 450px;
+  font-family: Courier;
   font-size: 18px;
 }
 
@@ -11,10 +11,12 @@
 }
 
 button {
-  font-family: monospace;
+  font-family: Courier;
+  min-width: 80px;
   background: none;
   border: 0;
   box-shadow: 0 0 0 1px black;
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -39,13 +41,23 @@ button.small-button {
   padding: 3px 8px;
 }
 
+button.danger-button {
+  box-shadow: 0 0 0 1px red;
+  color: red;
+}
+
+button.danger-button:focus, button.danger-button:hover {
+  box-shadow: 0 0 0 2px red;
+}
+
 button.borderless-button,
 button.borderless-button:focus {
+  min-width: auto;
   box-shadow: none;
 }
 
 input {
-  font-family: monospace;
+  font-family: Courier;
   font-size: 18px;
   height: 27px;
   padding: 0;
@@ -70,9 +82,17 @@ label {
   margin-right: 10px;
 }
 
+label::after {
+  content: ':';
+}
+
 .field-container {
-  height: 30px;
   margin-top: 10px;
+  height: 30px;
+}
+
+.field-container:first-child {
+  margin-top: 0;
 }
 
 .error-message {
@@ -81,20 +101,41 @@ label {
 
 @media (max-width: 420px) {
   button {
-    height: 47px;
+    height: 45px;
   }
 
   input {
-    height: 47px;
+    margin-top: 5px;
+    padding: 0 10px;
+    height: 45px;
+    width: 100%;
+    border: 0;
+    box-shadow: 0 0 0 1px black;
+  }
+
+  input:focus {
+    border: 0;
+    box-shadow: 0 0 0 2px black;
+  }
+
+  .invalid-input,
+  .invalid-input:focus {
+    border: 0;
+    box-shadow: 0 0 0 2px red;
   }
 
   label {
     text-align: left;
     margin-right: 0;
+    font-size: 14px;
+  }
+
+  label::after {
+    content: '';
   }
 
   .field-container {
-    height: 50px;
-    margin-top: 60px;
+    margin: 20px 0 0;
+    height: auto;
   }
 }

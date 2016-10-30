@@ -1,5 +1,5 @@
 .NewRecord-container {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .NewRecord-footer {
@@ -11,4 +11,16 @@
 .NewRecord-error {
   margin-left: 30px;
   font-size: 14px;
+}
+
+@media (max-width: 420px) {
+  .NewRecord-footer {
+    display: flex;
+    margin: 20px 20px 0 20px;
+    height: auto;
+  }
+
+  .NewRecord-error {
+    margin-top: 8px;
+  }
 }

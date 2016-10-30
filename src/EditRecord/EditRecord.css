@@ -3,23 +3,21 @@
 }
 
 .EditRecord-footer {
-  margin: 30px 30px 0 160px;
+  margin: 30px 22px 0 160px;
   font-size: 14px;
-}
-
-.EditRecord-footer-buttons-container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
   height: 27px;
-}
-
-.EditRecord-trash-icon {
-  width: 18px;
-  height: 18px;
-  fill: red;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .EditRecord-error {
-  margin-top: 20px;
+  margin: 0 20px;
+}
+
+@media (max-width: 420px) {
+  .EditRecord-footer {
+    margin: 20px 22px 0 20px;
+    height: auto;
+  }
 }
