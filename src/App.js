@@ -23,8 +23,6 @@ const base = Rebase.createClass({
 //   storageBucket: 'test-two-masters-iou.appspot.com',
 // });
 
-const message = getMessage();
-
 class App extends Component {
   static childContextTypes = {
     base: PropTypes.object
@@ -80,6 +78,7 @@ class App extends Component {
 
   render() {
     const { loading, user, isLogoutCollapsed, newRecordKey } = this.state;
+    const message = getMessage();
 
     return (
       <div className="App-container">

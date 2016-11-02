@@ -107,6 +107,7 @@ export const getMessage = () => {
     case '05-31': return 'Happy Birthday Michelle!';
     case '06-09': return 'Happy Birthday Josh!';
     case '08-03': return 'Happy Birthday Leva!';
+    case '10-03': return 'Happy Birthday Amira!';
     case '11-01': return 'Happy Birthday Luda!';
     default: return null;
   }
