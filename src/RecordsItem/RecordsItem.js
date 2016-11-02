@@ -8,6 +8,7 @@ class RecordsItem extends Component {
     record: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
     onUpdateSuccess: PropTypes.func.isRequired,
+    isNew: PropTypes.bool.isRequired,
     isEdited: PropTypes.bool.isRequired
   };
 
@@ -29,11 +30,11 @@ class RecordsItem extends Component {
   };
 
   renderRecord() {
-    const { record, isEdited } = this.props;
+    const { record, isNew, isEdited } = this.props;
 
     return (
       <div
-        className={`RecordsItem-record${isEdited ? ' RecordsItem-record-edited' : ''}`}
+        className={`RecordsItem-record${isNew ? ' RecordsItem-record-created' : ''}${isEdited ? ' RecordsItem-record-edited' : ''}`}
         onClick={this.onClick}
         title={isEdited ? 'Click to cancel edit' : 'Click to edit'}
         ref={this.storeContainerReference}>

@@ -11,19 +11,22 @@
 .RecordsItem-record {
   padding: 15px 20px;
   cursor: pointer;
+  transition: background-color 2s cubic-bezier(0, 0.7, 0, 1);
 }
 
 .RecordsItem-record:hover {
   background-color: #ddd;
 }
 
-.RecordsItem-record-edited {
-  background-color: #000;
-  color: #fff;
+.RecordsItem-record-created,
+.RecordsItem-record-created:hover {
+  background-color: #b6fab6;
 }
 
+.RecordsItem-record-edited,
 .RecordsItem-record-edited:hover {
   background-color: #000;
+  color: #fff;
 }
 
 .RecordsItem-record-line1 {

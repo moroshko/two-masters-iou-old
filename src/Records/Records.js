@@ -9,6 +9,10 @@ class Records extends Component {
     base: PropTypes.object
   };
 
+  static propTypes = {
+    newRecordKey: PropTypes.string
+  };
+
   constructor() {
     super();
 
@@ -63,6 +67,7 @@ class Records extends Component {
   };
 
   render() {
+    const { newRecordKey } = this.props;
     const { loading, records, editRecordKey } = this.state;
 
     return (
@@ -77,6 +82,7 @@ class Records extends Component {
                   <RecordsItem
                     record={record}
                     onClick={this.onRecordItemClick}
+                    isNew={record.key === newRecordKey}
                     isEdited={record.key === editRecordKey}
                     onUpdateSuccess={this.onUpdateSuccess}
                     key={record.key}

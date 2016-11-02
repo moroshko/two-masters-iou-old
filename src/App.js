@@ -14,6 +14,13 @@ const base = Rebase.createClass({
   storageBucket: 'two-masters-iou.appspot.com',
 });
 
+// const base = Rebase.createClass({
+//   apiKey: 'AIzaSyBDC5ysToSJhtyRhq7WkCYBeLGAw8wOz0U',
+//   authDomain: 'test-two-masters-iou.firebaseapp.com',
+//   databaseURL: 'https://test-two-masters-iou.firebaseio.com',
+//   storageBucket: 'test-two-masters-iou.appspot.com',
+// });
+
 class App extends Component {
   static childContextTypes = {
     base: PropTypes.object
@@ -25,7 +32,8 @@ class App extends Component {
     this.state = {
       loading: true,
       user: null,
-      isLogoutCollapsed: true
+      isLogoutCollapsed: true,
+      newRecordKey: null
     };
   }
 
@@ -54,8 +62,20 @@ class App extends Component {
     });
   };
 
+  onNewRecordCreated = newRecordKey => {
+    this.setState({
+      newRecordKey: newRecordKey
+    });
+
+    setTimeout(() => {
+      this.setState({
+        newRecordKey: null
+      });
+    }, 3000);
+  };
+
   render() {
-    const { loading, user, isLogoutCollapsed } = this.state;
+    const { loading, user, isLogoutCollapsed, newRecordKey } = this.state;
 
     return (
       <div className="App-container">
@@ -72,8 +92,8 @@ class App extends Component {
                   isLogoutCollapsed={isLogoutCollapsed}
                   onProfileIconClick={this.toggleIsLogoutCollapsed}
                 />
-                <NewRecord />
-                <Records />
+                <NewRecord onCreated={this.onNewRecordCreated} />
+                <Records newRecordKey={newRecordKey} />
               </div> :
               <Login />
             )

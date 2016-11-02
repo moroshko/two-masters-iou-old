@@ -8,6 +8,10 @@ class NewRecord extends Component {
     base: PropTypes.object
   };
 
+  static propTypes = {
+    onCreated: PropTypes.func.isRequired
+  };
+
   constructor() {
     super();
 
@@ -76,6 +80,7 @@ class NewRecord extends Component {
     });
 
     const { base } = this.context;
+    const { onCreated } = this.props;
     const { lender, borrower, amount, description, date } = this.state;
     const newRecord = {
       lender: lender,
@@ -86,20 +91,29 @@ class NewRecord extends Component {
     };
 
     base.push('records', { data: newRecord })
-      .then(() => {
+      .then(newLocation => {
         base.database().ref('/levaOwesDanik')
           .transaction(levaOwesDanik => levaOwesDanik + getLevaOwesDanikDiff(newRecord), error => {
-            this.setState({
-              lender: null,
-              borrower: null,
-              amount: '',
-              isAmountDirty: false,
-              description: '',
-              isDescriptionDirty: false,
-              date: getToday(),
-              loading: false,
-              error: error ? 'Something went wrong' : null
-            });
+            if (error) {
+              this.setState({
+                loading: false,
+                error: 'Something went wrong'
+              });
+            } else {
+              this.setState({
+                lender: null,
+                borrower: null,
+                amount: '',
+                isAmountDirty: false,
+                description: '',
+                isDescriptionDirty: false,
+                date: getToday(),
+                loading: false,
+                error: null
+              });
+
+              onCreated(newLocation.key);
+            }
           });
       })
       .catch(error => {
