@@ -2,9 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import Rebase from 're-base';
 import Login from './Login/Login';
 import Logout from './Logout/Logout';
+import Message from './Message/Message';
 import Balance from './Balance/Balance';
 import NewRecord from './NewRecord/NewRecord';
 import Records from './Records/Records';
+import { getMessage } from './helpers';
 import './App.css';
 
 const base = Rebase.createClass({
@@ -20,6 +22,8 @@ const base = Rebase.createClass({
 //   databaseURL: 'https://test-two-masters-iou.firebaseio.com',
 //   storageBucket: 'test-two-masters-iou.appspot.com',
 // });
+
+const message = getMessage();
 
 class App extends Component {
   static childContextTypes = {
@@ -88,6 +92,7 @@ class App extends Component {
                   isCollapsed={isLogoutCollapsed}
                   email={user.email}
                 />
+                {message ? <Message message={message} /> : null}
                 <Balance
                   isLogoutCollapsed={isLogoutCollapsed}
                   onProfileIconClick={this.toggleIsLogoutCollapsed}

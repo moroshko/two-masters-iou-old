@@ -99,3 +99,15 @@ export const getLevaOwesDanikDiff = ({ lender, borrower, amount }) => {
   return 0;
 };
 
+export const getMessage = () => {
+  switch (getToday().slice(5)) {
+    case '01-31': return 'Happy Birthday Markusha!';
+    case '03-09': return 'Happy Birthday Danik!';
+    case '04-29': return 'Happy Birthday Julia!';
+    case '05-31': return 'Happy Birthday Michelle!';
+    case '06-09': return 'Happy Birthday Josh!';
+    case '08-03': return 'Happy Birthday Leva!';
+    case '11-01': return 'Happy Birthday Luda!';
+    default: return null;
+  }
+};
